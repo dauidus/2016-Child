@@ -22,12 +22,23 @@
 			//$start_date = get_post_meta( get_the_ID(), 'start_date', true );
 
 			// display date field
-			$display_date = date('F d, Y', strtotime(get_post_meta($post->ID, "start_date", true)));
-			echo 'Work began on: ' . $display_date . '<br>';
+			if ( get_post_meta( get_the_ID(), 'start_date', true ) ) {
+				$display_date = date('F d, Y', strtotime(get_post_meta($post->ID, "start_date", true)));
+				echo 'Work began on: ' . $display_date . '<br>';
+			}
 
 			// display price field
-			$client_price = get_post_meta( get_the_ID(), 'Price', true );
-			echo 'Client has paid $' . $client_price . '<br><br>';
+			if ( get_post_meta( get_the_ID(), 'Price', true ) ) {
+				$client_price = get_post_meta( get_the_ID(), 'Price', true );
+				echo 'Client has paid $' . $client_price . '<br><br>';
+			}
+
+			// display TYPES price field
+			if ( get_post_meta( get_the_ID(), 'wpcf-client-price', true ) ) {
+				$types_price = get_post_meta( get_the_ID(), 'wpcf-client-price', true );
+				echo 'Client has paid $' . $types_price . '<br><br>';
+			}
+
 			the_content();
 
 			wp_link_pages( array(
@@ -46,9 +57,10 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php twentysixteen_entry_meta();
-			the_taxonomies();
-		 ?>
+		<?php twentysixteen_entry_meta(); ?>
+
+		<?php echo get_the_term_list( $post->ID, 'client-type', '<div class="client_category_class">', '<br>', '</div><br>' ) ?>
+
 		<?php
 			edit_post_link(
 				sprintf(
