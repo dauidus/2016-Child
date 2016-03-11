@@ -19,6 +19,15 @@
 
 	<div class="entry-content">
 		<?php
+			//$start_date = get_post_meta( get_the_ID(), 'start_date', true );
+
+			// display date field
+			$display_date = date('F d, Y', strtotime(get_post_meta($post->ID, "start_date", true)));
+			echo 'Work began on: ' . $display_date . '<br>';
+
+			// display price field
+			$client_price = get_post_meta( get_the_ID(), 'Price', true );
+			echo 'Client has paid $' . $client_price . '<br><br>';
 			the_content();
 
 			wp_link_pages( array(
