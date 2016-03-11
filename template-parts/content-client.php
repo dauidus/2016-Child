@@ -59,7 +59,9 @@
 	<footer class="entry-footer">
 		<?php twentysixteen_entry_meta(); ?>
 
-		<?php echo get_the_term_list( $post->ID, 'client-type', '<div class="client_category_class">', '<br>', '</div><br>' ) ?>
+		<?php 
+		// output list of items in custom category "client-type"
+		echo get_the_term_list( $post->ID, 'client-type', '<div class="client_category_class">', '<br>', '</div><br>' ) ?>
 
 		<?php
 			edit_post_link(
